@@ -66,8 +66,8 @@ const CountingSection = () => {
 
   useEffect(() => {
     if (isVisible) {
-      const duration = 2000; // 2 seconds for the count animation
-      const steps = 50; // Number of steps in the animation
+      const duration = 2000;
+      const steps = 50;
       const stepDuration = duration / steps;
 
       const counters = statistics.map((stat, index) => {
@@ -101,39 +101,60 @@ const CountingSection = () => {
 
   return (
     <section ref={sectionRef} className="w-full overflow-hidden">
-      <div className="grid grid-cols-2 md:grid-cols-4">
-        {statistics.map((stat, index) => (
-          <div
-            key={index}
-            className={`${stat.bgColor} py-12 px-8 flex items-center gap-6
-              transform transition-all duration-1000 ease-out
-              ${isVisible 
-                ? 'translate-x-0 opacity-100' 
-                : stat.group === 'left'
-                  ? '-translate-x-full opacity-0'
-                  : 'translate-x-full opacity-0'
-              }`}
-          >
-            {/* Icon */}
-            <div className={`${stat.iconColor} flex-shrink-0`}>
-              <stat.icon size={48} strokeWidth={1.5} />
-            </div>
-            
-            {/* Numbers and Text */}
-            <div>
-              <div className={`text-4xl md:text-5xl font-bold ${
-                stat.bgColor === 'bg-orange-500' ? 'text-navy-900' : 'text-orange-500'
-              }`}>
-                {counts[index]}
+      <div className="flex flex-col md:flex-row">
+        {/* Navy Background Section */}
+        <div className="w-full md:w-1/2 bg-navy-900">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {statistics.slice(0, 2).map((stat, index) => (
+              <div
+                key={index}
+                className={`transform transition-all duration-1000 ease-out py-12 px-6 md:px-4
+                  flex flex-col items-center md:flex-row md:items-center
+                  ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <div className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}>
+                  <stat.icon size={48} strokeWidth={1.5} />
+                </div>
+                <div className="text-center md:text-left">
+                  <div className="text-5xl font-bold text-orange-500 mb-2">
+                    {counts[index]}
+                  </div>
+                  <div className="text-white font-medium">
+                    {stat.label}
+                  </div>
+                </div>
               </div>
-              <div className={`${
-                stat.bgColor === 'bg-orange-500' ? 'text-navy-900' : 'text-white'
-              } font-medium mt-1`}>
-                {stat.label}
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Orange Background Section */}
+        <div className="w-full md:w-1/2 bg-orange-500">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {statistics.slice(2, 4).map((stat, index) => (
+              <div
+                key={index + 2}
+                className={`transform transition-all duration-1000 ease-out py-12 px-6 md:px-4
+                  flex flex-col items-center md:flex-row md:items-center
+                  ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
+                style={{ transitionDelay: `${(index + 2) * 150}ms` }}
+              >
+                <div className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}>
+                  <stat.icon size={48} strokeWidth={1.5} />
+                </div>
+                <div className="text-center md:text-left">
+                  <div className="text-5xl font-bold text-navy-900 mb-2">
+                    {counts[index + 2]}
+                  </div>
+                  <div className="text-navy-900 font-medium">
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

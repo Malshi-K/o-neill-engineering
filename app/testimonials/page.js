@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import PageTitle from "@/components/PageTitle";
-import TestimonialSlider from "@/components/home/TestimonialSlider";
+import Testimonials from "@/components/testimonials/Testimonials";
 
 // Example About page
 const TestimonialsPage = () => {
@@ -10,7 +10,7 @@ const TestimonialsPage = () => {
   return (
     <>
       <PageTitle title="Testimonials" currentPath={pathname} />
-      <TestimonialSlider />
+      <Testimonials />
     </>
   );
 };

@@ -2,21 +2,22 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   const formatServiceUrl = (service) => {
     return service
       .toLowerCase()
-      .replace(/&/g, "and") // Replace & with 'and'
-      .replace(/[^a-z0-9]+/g, "-") // Replace any non-alphanumeric characters with hyphens
-      .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   };
 
-  // Update the services array to match exactly with your data structure
   const services = [
     "Gable buildings",
     "Half round barns",
@@ -26,15 +27,26 @@ const Header = () => {
     "Roofing & Corrugated iron",
   ];
 
-  // Function to handle service link click
   const handleServiceClick = () => {
     setIsServicesOpen(false);
-    setIsMenuOpen(false); // Also close mobile menu if open
+    setIsMenuOpen(false);
+  };
+
+  // Check if current path matches menu item
+  const isActive = (path) => {
+    if (path === '/') {
+      return pathname === path;
+    }
+    return pathname.startsWith(path);
+  };
+
+  // Get text color based on active state
+  const getTextColor = (path) => {
+    return isActive(path) ? "text-orange-500" : "text-white hover:text-orange-500";
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      // Close mobile menu and services dropdown when scrolling
       if (isMenuOpen) {
         setIsMenuOpen(false);
       }
@@ -42,7 +54,6 @@ const Header = () => {
         setIsServicesOpen(false);
       }
 
-      // Handle scroll state
       if (window.scrollY > 100) {
         setIsScrolled(true);
       } else {
@@ -50,7 +61,6 @@ const Header = () => {
       }
     };
 
-    // Close menu when clicking outside
     const handleClickOutside = (event) => {
       if (
         !event.target.closest(".services-menu") &&
@@ -68,7 +78,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [isMenuOpen, isServicesOpen]); // Add dependencies
+  }, [isMenuOpen, isServicesOpen]);
 
   return (
     <header className="bg-orange-500">
@@ -155,49 +165,57 @@ const Header = () => {
           <div className="flex justify-between items-center h-16 px-4">
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <Link href="/" className="text-orange-500 font-medium">
+              <Link 
+                href="/" 
+                className={`${getTextColor('/')} font-medium`}
+              >
                 HOME
               </Link>
               <Link
                 href="/about"
-                className="text-white hover:text-orange-500 font-medium"
+                className={`${getTextColor('/about')} font-medium`}
               >
                 ABOUT
               </Link>
               <div className="relative services-menu">
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent event from bubbling up
+                    e.stopPropagation();
                     setIsServicesOpen(!isServicesOpen);
                   }}
-                  className="text-white hover:text-orange-500 font-medium flex items-center gap-1"
+                  className={`${pathname.startsWith('/services') ? 'text-orange-500' : 'text-white hover:text-orange-500'} font-medium flex items-center gap-1`}
                 >
                   SERVICES ▼
                 </button>
                 {isServicesOpen && (
                   <div className="absolute top-full left-0 bg-white text-black py-2 w-64 shadow-lg z-50">
-                    {services.map((service, index) => (
-                      <Link
-                        key={index}
-                        href={`/services/${formatServiceUrl(service)}`}
-                        className="block px-4 py-2 hover:bg-gray-100"
-                        onClick={handleServiceClick}
-                      >
-                        {service}
-                      </Link>
-                    ))}
+                    {services.map((service, index) => {
+                      const serviceUrl = `/services/${formatServiceUrl(service)}`;
+                      return (
+                        <Link
+                          key={index}
+                          href={serviceUrl}
+                          className={`block px-4 py-2 ${
+                            pathname === serviceUrl ? 'text-orange-500' : 'hover:bg-gray-100'
+                          }`}
+                          onClick={handleServiceClick}
+                        >
+                          {service}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
               <Link
                 href="/gallery"
-                className="text-white hover:text-orange-500 font-medium"
+                className={`${getTextColor('/gallery')} font-medium`}
               >
                 GALLERY
               </Link>
               <Link
                 href="/testimonials"
-                className="text-white hover:text-orange-500 font-medium"
+                className={`${getTextColor('/testimonials')} font-medium`}
               >
                 TESTIMONIALS
               </Link>
@@ -206,12 +224,13 @@ const Header = () => {
             {/* Contact Button */}
             <Link
               href="/contact"
-              className="hidden lg:block border border-white text-white px-6 py-2 hover:bg-orange-500 hover:border-orange-500 transition-colors"
+              className={`hidden lg:block border border-white ${
+                pathname === '/contact' ? 'bg-orange-500 border-orange-500' : ''
+              } text-white px-6 py-2 hover:bg-orange-500 hover:border-orange-500 transition-colors`}
             >
               Contact Us
             </Link>
 
-            {/* Mobile Menu Button */}
             {/* Mobile Menu Button */}
             <button
               className="lg:hidden text-white mobile-menu-button"
@@ -236,51 +255,63 @@ const Header = () => {
           >
             <div className="lg:hidden py-4 px-4">
               <div className="flex flex-col space-y-3">
-                <Link href="/" className="text-orange-500">
+                <Link 
+                  href="/" 
+                  className={getTextColor('/')}
+                >
                   HOME
                 </Link>
                 <Link
                   href="/about"
-                  className="text-white hover:text-orange-500"
+                  className={getTextColor('/about')}
                 >
                   ABOUT
                 </Link>
                 <button
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="text-white hover:text-orange-500 text-left flex items-center justify-between"
+                  className={`${
+                    pathname.startsWith('/services') ? 'text-orange-500' : 'text-white hover:text-orange-500'
+                  } text-left flex items-center justify-between`}
                 >
                   SERVICES
                   <span>▼</span>
                 </button>
                 {isServicesOpen && (
                   <div className="pl-4 space-y-2">
-                    {services.map((service, index) => (
-                      <Link
-                        key={index}
-                        href={`/services/${formatServiceUrl(service)}`}
-                        className="block text-white hover:text-orange-500"
-                        onClick={handleServiceClick}
-                      >
-                        {service}
-                      </Link>
-                    ))}
+                    {services.map((service, index) => {
+                      const serviceUrl = `/services/${formatServiceUrl(service)}`;
+                      return (
+                        <Link
+                          key={index}
+                          href={serviceUrl}
+                          className={`block ${
+                            pathname === serviceUrl ? 'text-orange-500' : 'text-white hover:text-orange-500'
+                          }`}
+                          onClick={handleServiceClick}
+                        >
+                          {service}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
                 <Link
                   href="/gallery"
-                  className="text-white hover:text-orange-500"
+                  className={getTextColor('/gallery')}
                 >
                   GALLERY
                 </Link>
                 <Link
                   href="/testimonials"
-                  className="text-white hover:text-orange-500"
+                  className={getTextColor('/testimonials')}
                 >
                   TESTIMONIALS
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-block border border-white text-white px-6 py-2 hover:bg-orange-500 hover:border-orange-500 transition-colors"
+                  className={`inline-block border border-white ${
+                    pathname === '/contact' ? 'bg-orange-500 border-orange-500' : ''
+                  } text-white px-6 py-2 hover:bg-orange-500 hover:border-orange-500 transition-colors`}
                 >
                   Contact Us
                 </Link>

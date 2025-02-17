@@ -1,6 +1,6 @@
-"use client"
-import React, { useState, useEffect, useRef } from 'react';
-import { HardHat, Building2, ClipboardCheck, Construction } from 'lucide-react';
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import { BriefcaseBusiness, Warehouse, UserCheck, Wrench } from "lucide-react";
 
 const CountingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,37 +8,37 @@ const CountingSection = () => {
 
   const statistics = [
     {
-      number: 109,
-      label: 'EXPERT WORKERS',
-      icon: HardHat,
-      bgColor: 'bg-navy-900',
-      iconColor: 'text-orange-500',
-      group: 'left'
+      number: 50,
+      label: "YEARS IN BUSINESS",
+      icon: BriefcaseBusiness,
+      bgColor: "bg-navy-900",
+      iconColor: "text-orange-500",
+      group: "left",
     },
     {
-      number: 485,
-      label: 'HAPPY CLIENTS',
-      icon: Building2,
-      bgColor: 'bg-navy-900',
-      iconColor: 'text-orange-500',
-      group: 'left'
+      number: 1000,
+      label: "SHEDS BUILT",
+      icon: Warehouse,
+      bgColor: "bg-navy-900",
+      iconColor: "text-orange-500",
+      group: "left",
     },
     {
-      number: 789,
-      label: 'COMPLETED PROJECTS',
-      icon: ClipboardCheck,
-      bgColor: 'bg-orange-500',
-      iconColor: 'text-navy-900',
-      group: 'right'
+      number: 30,
+      label: "YEARS OF OWNER EXPERIENCE",
+      icon: UserCheck,
+      bgColor: "bg-orange-500",
+      iconColor: "text-navy-900",
+      group: "right",
     },
     {
-      number: 890,
-      label: 'RUNNING PROJECTS',
-      icon: Construction,
-      bgColor: 'bg-orange-500',
-      iconColor: 'text-navy-900',
-      group: 'right'
-    }
+      number: 5,
+      label: "SERVICES",
+      icon: Wrench,
+      bgColor: "bg-orange-500",
+      iconColor: "text-navy-900",
+      group: "right",
+    },
   ];
 
   const [counts, setCounts] = useState(statistics.map(() => 0));
@@ -76,7 +76,7 @@ const CountingSection = () => {
 
         return setInterval(() => {
           if (currentStep === steps) {
-            setCounts(prev => {
+            setCounts((prev) => {
               const newCounts = [...prev];
               newCounts[index] = stat.number;
               return newCounts;
@@ -84,7 +84,7 @@ const CountingSection = () => {
             return;
           }
 
-          setCounts(prev => {
+          setCounts((prev) => {
             const newCounts = [...prev];
             newCounts[index] = Math.round(stepValue * currentStep);
             return newCounts;
@@ -94,7 +94,7 @@ const CountingSection = () => {
       });
 
       return () => {
-        counters.forEach(counter => clearInterval(counter));
+        counters.forEach((counter) => clearInterval(counter));
       };
     }
   }, [isVisible]);
@@ -110,19 +110,23 @@ const CountingSection = () => {
                 key={index}
                 className={`transform transition-all duration-1000 ease-out py-12 px-6 md:px-4
                   flex flex-col items-center md:flex-row md:items-center
-                  ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
+                  ${
+                    isVisible
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-full opacity-0"
+                  }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}>
+                <div
+                  className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}
+                >
                   <stat.icon size={48} strokeWidth={1.5} />
                 </div>
                 <div className="text-center md:text-left">
                   <div className="text-5xl font-bold text-orange-500 mb-2">
                     {counts[index]}
                   </div>
-                  <div className="text-white font-medium">
-                    {stat.label}
-                  </div>
+                  <div className="text-white font-medium">{stat.label}</div>
                 </div>
               </div>
             ))}
@@ -137,19 +141,23 @@ const CountingSection = () => {
                 key={index + 2}
                 className={`transform transition-all duration-1000 ease-out py-12 px-6 md:px-4
                   flex flex-col items-center md:flex-row md:items-center
-                  ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}
+                  ${
+                    isVisible
+                      ? "translate-x-0 opacity-100"
+                      : "translate-x-full opacity-0"
+                  }`}
                 style={{ transitionDelay: `${(index + 2) * 150}ms` }}
               >
-                <div className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}>
+                <div
+                  className={`${stat.iconColor} flex-shrink-0 mb-4 md:mb-0 md:mr-3`}
+                >
                   <stat.icon size={48} strokeWidth={1.5} />
                 </div>
                 <div className="text-center md:text-left">
                   <div className="text-5xl font-bold text-navy-900 mb-2">
                     {counts[index + 2]}
                   </div>
-                  <div className="text-navy-900 font-medium">
-                    {stat.label}
-                  </div>
+                  <div className="text-navy-900 font-medium">{stat.label}</div>
                 </div>
               </div>
             ))}

@@ -8,25 +8,25 @@ const CardSection = () => {
 
   const cards = [
     {
-      title: "Expert Worker",
+      title: "Over 50 Years of Experience",
       description:
-        "Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare velit non",
+        "O'Neill Engineering has been specializing in half-round barns, farm buildings, and gable structures for over five decades.",
       icon: HardHat,
       bgColor: "bg-navy-900",
       iconColor: "text-orange-500",
     },
     {
-      title: "Quality Work",
+      title: "High-Quality Structures",
       description:
-        "Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare velit non",
+        "Our buildings are constructed to the highest standards, ensuring durability and longevity for all your agricultural and industrial needs.",
       icon: Building2,
       bgColor: "bg-orange-500",
       iconColor: "text-white",
     },
     {
-      title: "24/7 Support",
+      title: "Comprehensive Services",
       description:
-        "Lorem ipsum dolor sit amet elit. Phasus nec pretim ornare velit non",
+        "We offer onsite construction, kitset options, relocation, and repair services to meet your specific requirements.",
       icon: Headset,
       bgColor: "bg-navy-900",
       iconColor: "text-orange-500",

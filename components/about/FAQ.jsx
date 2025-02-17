@@ -79,7 +79,7 @@ const FAQ = () => {
                 <button
                   onClick={() => toggleQuestion(index + Math.ceil(faqData.length / 2))}
                   className={`w-full flex justify-between items-center p-4 text-left font-medium transition-colors ${
-                    openIndex === index + Math.ceil(faqData.length / 2) ? 'bg-amber-400 text-navy-900' : 'hover:bg-gray-50'
+                    openIndex === index + Math.ceil(faqData.length / 2) ? 'bg-orange-500 text-navy-900' : 'hover:bg-gray-50'
                   }`}
                 >
                   {item.question}

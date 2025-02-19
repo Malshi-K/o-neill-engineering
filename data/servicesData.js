@@ -149,10 +149,10 @@ export const servicesData = {
       "Corrugated Zincalume® or Colorsteel® Cladding",
       "Poles to be supplied and installed by owner.  We can install the poles at an extra cost",
     ],
-    mainImage: "/images/projects/Bin Covers/1.jpg",
+    mainImage: "/images/projects/Bin Covers/2.jpg",
     gallery: [
-      "/images/projects/Bin Covers/1.jpg",
       "/images/projects/Bin Covers/2.jpg",
+      "/images/projects/Bin Covers/3.jpg",
     ],
     expandableContent: [
       {
@@ -167,10 +167,10 @@ export const servicesData = {
     description:
       "The lean-to is great should you wish to extend the available area to either a gable or half round building.",
     features: ["Sizes range from 3m – 5.5m wide and 2.2m - 3m high"],
-    mainImage: "/images/projects/Lean to Sheds/1.jpg",
+    mainImage: "/images/projects/Lean to Sheds/2.jpg",
     gallery: [
-      "/images/projects/Lean to Sheds/1.jpg",
       "/images/projects/Lean to Sheds/2.jpg",
+      "/images/projects/Lean to Sheds/3.jpg",
     ],
     expandableContent: [
       {
@@ -190,10 +190,10 @@ export const servicesData = {
     description:
       "Are you needing your old roof replaced?  Are you building a new dwelling?",
     features: ["We have experienced, licensed roofers available."],
-    mainImage: "/images/projects/Roofing/1.jpg",
+    mainImage: "/images/projects/Roofing/2.jpg",
     gallery: [
-      "/images/projects/Roofing/1.jpg",
       "/images/projects/Roofing/2.jpg",
+      "/images/projects/Roofing/3.jpg",
     ],
     expandableContent: [
       {
